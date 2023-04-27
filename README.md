@@ -20,6 +20,8 @@ Or install it yourself as:
 
 ## Usage
 
+usage example: https://github.com/AlexKhoroshko/html_tables
+
 ### Creating a table
 
 To create a table, simply require 'html_table_dsl', include HtmlTableDSL::Table and call the table method, passing in a block that defines the contents of the table:
