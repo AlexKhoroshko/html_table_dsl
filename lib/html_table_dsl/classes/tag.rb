@@ -1,10 +1,16 @@
 # frozen_string_literal: true
 
+require_relative "../services/validator"
+
 module HtmlTableDSL
   class Tag
+    include Validator
+
     attr_reader :name, :attributes, :children
 
     def initialize(name, attributes = {}, &block)
+      validate_options attributes
+
       @name = name
       @attributes = attributes
       @children = []

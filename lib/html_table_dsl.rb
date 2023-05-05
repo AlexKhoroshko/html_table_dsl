@@ -5,7 +5,6 @@ require_relative "html_table_dsl/classes/container"
 require_relative "html_table_dsl/classes/row"
 require_relative "html_table_dsl/classes/table"
 require_relative "html_table_dsl/classes/tag"
-require_relative "html_table_dsl/services/validator"
 require_relative "html_table_dsl/version"
 
 module HtmlTableDSL

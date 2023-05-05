@@ -112,18 +112,30 @@ RSpec.describe HtmlTableTest do
       let(:html) do
         subject.table(class: "my-table", style: "color: red;") do
           header do
-            cell "Header 1", class: 123, style: "text-align: center;"
-            cell "Header 2", class: "header-cell", style: 123
+            row do
+              cell "Header 1", class: 123, style: "text-align: center;"
+              cell "Header 2", class: "header-cell", style: 123
+            end
           end
-          row(class: 123) do
-            cell "Row 1 Cell 1"
-            cell "Row 1 Cell 2", style: "color: blue;"
-          end
-          row(class: "odd-row") do
-            cell "Row 2 Cell 1"
-            cell "Row 2 Cell 2", style: "color: green;"
+          body do
+            row(class: 123) do
+              cell "Row 1 Cell 1"
+              cell "Row 1 Cell 2", style: "color: blue;"
+            end
+            row(class: "odd-row") do
+              cell "Row 2 Cell 1"
+              cell "Row 2 Cell 2", style: "color: green;"
+            end
           end
         end
+      end
+
+      it "raises an error when unknown attributes are provided" do
+        expect { subject.table(foo: "bar") }.to raise_error(StandardError, "Unknown attributes: foo")
+      end
+
+      it "raises an error when invalid attribute values are provided" do
+        expect { html }.to raise_error(StandardError, "Attribute value must be a string")
       end
     end
   end
