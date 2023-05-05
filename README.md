@@ -29,18 +29,22 @@ To create a table, simply require 'html_table_dsl', include HtmlTableDSL::Table 
 ```ruby
 table do
   header do
-    cell "Header 1"
-    cell "Header 2"
+    row do
+      cell "Header 1"
+      cell "Header 2"
+    end
   end
 
-  row do
-    cell "Row 1 Cell 1"
-    cell "Row 1 Cell 2"
-  end
+  body do
+    row do
+      cell "Row 1 Cell 1"
+      cell "Row 1 Cell 2"
+    end
 
-  row do
-    cell "Row 2 Cell 1"
-    cell "Row 2 Cell 2"
+    row do
+      cell "Row 2 Cell 1"
+      cell "Row 2 Cell 2"
+    end
   end
 end
 ```
@@ -75,22 +79,22 @@ You can also add attributes and styles to your table, headers, rows, and cells b
 ```ruby
 table class: "my-table", style: "border: 1px solid black;", width: "800px" do
   header do
-    cell "Header 1", class: "header-cell", style: "text-align: center;"
-    cell "Header 2", class: "header-cell", style: "text-align: center;"
+    row do
+      cell "Header 1", class: "header-cell", style: "text-align: center;"
+      cell "Header 2", class: "header-cell", style: "text-align: center;"
+    end
   end
 
-  row class: "even-row", style: "background-color: lightgrey"  do
-    cell "Row 1 Cell 1", class: "cell"
-    cell "Row 1 Cell 2", class: "cell"
-  end
+  body do
+    row class: "even-row", style: "background-color: lightgrey"  do
+      cell "Row 1 Cell 1", class: "cell"
+      cell "Row 1 Cell 2", class: "cell"
+    end
 
-  row do
-    cell "Row 2 Cell 1", class: "cell"
-    cell "Row 2 Cell 2", class: "cell"
+    row do
+      cell "Row 2 Cell 1", class: "cell"
+      cell "Row 2 Cell 2", class: "cell"
+    end
   end
 end
 ```
-
-## License
-
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
