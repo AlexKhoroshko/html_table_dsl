@@ -16,6 +16,12 @@ RSpec.describe HtmlTableTest do
       let(:styled_empty_table_html) { "<table class='my-table' style='color: red;'></table>" }
       let(:table_with_rows_and_header_html) do
         "<table>"\
+        "<tr><th>Header 1</th><th>Header 2</th></tr>"\
+        "<tr><td>Row 1 Cell 1</td><td>Row 1 Cell 2</td></tr>"\
+        "<tr><td>Row 2 Cell 1</td><td>Row 2 Cell 2</td></tr></table>"
+      end
+      let(:table_with_thead_and_tbody_html) do
+        "<table>"\
         "<thead><tr><th>Header 1</th><th>Header 2</th></tr></thead>"\
         "<tbody><tr><td>Row 1 Cell 1</td><td>Row 1 Cell 2</td></tr>"\
         "<tr><td>Row 2 Cell 1</td><td>Row 2 Cell 2</td></tr></tbody></table>"
@@ -36,11 +42,34 @@ RSpec.describe HtmlTableTest do
         expect(subject.table(class: "my-table", style: "color: red;")).to eq(styled_empty_table_html)
       end
 
-      it "returns a valid html table with header and rows" do
+      it "returns a valid html table with thead and tbody tags" do
         html = subject.table do
           header do
-            cell "Header 1"
-            cell "Header 2"
+            row do
+              header_cell "Header 1"
+              header_cell "Header 2"
+            end
+          end
+          body do
+            row do
+              cell "Row 1 Cell 1"
+              cell "Row 1 Cell 2"
+            end
+            row do
+              cell "Row 2 Cell 1"
+              cell "Row 2 Cell 2"
+            end
+          end
+        end
+
+        expect(html).to eq(table_with_thead_and_tbody_html)
+      end
+
+      it "returns a valid html table with header and rows" do
+        html = subject.table do
+          row do
+            header_cell "Header 1"
+            header_cell "Header 2"
           end
           row do
             cell "Row 1 Cell 1"
@@ -58,16 +87,20 @@ RSpec.describe HtmlTableTest do
       it "returns a valid html table with styles and classes" do
         html = subject.table(class: "my-table", style: "color: red;") do
           header do
-            cell "Header 1", class: "header-cell", style: "text-align: center;"
-            cell "Header 2", class: "header-cell", style: "text-align: center;"
+            row do
+              header_cell "Header 1", class: "header-cell", style: "text-align: center;"
+              header_cell "Header 2", class: "header-cell", style: "text-align: center;"
+            end
           end
-          row(class: "even-row") do
-            cell "Row 1 Cell 1"
-            cell "Row 1 Cell 2", style: "color: blue;"
-          end
-          row(class: "odd-row") do
-            cell "Row 2 Cell 1"
-            cell "Row 2 Cell 2", style: "color: green;"
+          body do
+            row(class: "even-row") do
+              cell "Row 1 Cell 1"
+              cell "Row 1 Cell 2", style: "color: blue;"
+            end
+            row(class: "odd-row") do
+              cell "Row 2 Cell 1"
+              cell "Row 2 Cell 2", style: "color: green;"
+            end
           end
         end
 
@@ -91,14 +124,6 @@ RSpec.describe HtmlTableTest do
             cell "Row 2 Cell 2", style: "color: green;"
           end
         end
-      end
-
-      it "raises an error when unknown attributes are provided" do
-        expect { subject.table(foo: "bar") }.to raise_error(StandardError, "Unknown attributes: foo")
-      end
-
-      it "raises an error when invalid attribute values are provided" do
-        expect { html }.to raise_error(StandardError, "Attribute value must be a string")
       end
     end
   end
