@@ -3,9 +3,9 @@
 require_relative "tag"
 
 module HtmlTableDSL
-  class Header < Tag
-    def initialize(options = {}, &block)
-      super("thead", options, &block)
+  class Container < Tag
+    def initialize(tag_name, options = {}, &block)
+      super(tag_name, options, &block)
     end
 
     def row(options = {}, &block)

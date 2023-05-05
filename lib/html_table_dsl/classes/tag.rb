@@ -17,20 +17,17 @@ module HtmlTableDSL
     end
 
     def to_html
-      attributes_html = @attributes.map { |key, value| " #{key}='#{value}'" }.join("")
-      children_html = @children.map do |child|
-        if child.class == String
-          child
-        else
-          child.to_html
-        end
-      end.join
+      "<#{@name}#{attributes_html}>#{children_html}</#{@name}>"
+    end
 
-      if children_html.empty?
-        "<#{@name}#{attributes_html}></#{@name}>"
-      else
-        "<#{@name}#{attributes_html}>#{children_html}</#{@name}>"
-      end
+    private
+
+    def attributes_html
+      @attributes.map { |key, value| " #{key}='#{value}'" }.join("")
+    end
+
+    def children_html
+      @children.map { |child| child.is_a?(Tag) ? child.to_html : child }.join
     end
   end
 end

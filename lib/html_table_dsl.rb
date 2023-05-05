@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
-require_relative "html_table_dsl/classes/body"
 require_relative "html_table_dsl/classes/cell"
-require_relative "html_table_dsl/classes/header_cell"
-require_relative "html_table_dsl/classes/header"
+require_relative "html_table_dsl/classes/container"
 require_relative "html_table_dsl/classes/row"
 require_relative "html_table_dsl/classes/table"
 require_relative "html_table_dsl/classes/tag"

@@ -9,11 +9,11 @@ module HtmlTableDSL
     end
 
     def header(options = {}, &block)
-      add_child(Header.new(options, &block))
+      add_child(Container.new("thead", options, &block))
     end
 
     def body(options = {}, &block)
-      add_child(Body.new(options, &block))
+      add_child(Container.new("tbody", options, &block))
     end
 
     def row(options = {}, &block)
