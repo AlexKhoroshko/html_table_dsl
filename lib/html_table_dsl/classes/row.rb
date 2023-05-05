@@ -1,22 +1,19 @@
 # frozen_string_literal: true
 
-require_relative "../services/validator"
+require_relative "tag"
 
 module HtmlTableDSL
-  class Row
-    include Validator
-
-    attr_reader :cells
-
-    def initialize(options)
-      validate_options options
-
-      @options = options
-      @cells = []
+  class Row < Tag
+    def initialize(options = {}, &block)
+      super("tr", options, &block)
     end
 
     def cell(value, options = {})
-      @cells << { value: value, class: options[:class], style: options[:style] }
+      add_child(Cell.new("td", value, options))
+    end
+
+    def header_cell(value, options = {})
+      add_child(Cell.new("th", value, options))
     end
   end
 end

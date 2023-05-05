@@ -2,12 +2,7 @@
 
 module HtmlTableDSL
   module Validator
-    ALLOWED_TABLE_ATTRIBUTES = %i[class style width height border cellpadding header rows].freeze
-    ALLOWED_TAG_ATTRIBUTES = %i[class style].freeze
-
-    def validate_table(options)
-      validate_allowed_options(ALLOWED_TABLE_ATTRIBUTES, options)
-    end
+    ALLOWED_TAG_ATTRIBUTES = %i[class style width height border cellpadding].freeze
 
     def validate_options(options)
       validate_allowed_options(ALLOWED_TAG_ATTRIBUTES, options)
