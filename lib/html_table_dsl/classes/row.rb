@@ -8,12 +8,12 @@ module HtmlTableDSL
       super("tr", options, &block)
     end
 
-    def cell(value, options = {})
-      add_child(Cell.new("td", value, options))
+    def cell(value = nil, options = {}, &block)
+      add_child(Cell.new("td", value, options, &block))
     end
 
-    def header_cell(value, options = {})
-      add_child(Cell.new("th", value, options))
+    def header_cell(value = nil, options = {}, &block)
+      add_child(Cell.new("th", value, options, &block))
     end
   end
 end
